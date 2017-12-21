@@ -10,7 +10,9 @@
   <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 
 </head>
+
 <body>
+
 
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -25,7 +27,70 @@
     </div>
 </nav>
 
+<div class="container">
+<div class="jumbotron text-center">
+    <h1>CRYPTO CHARTER</h1>
+    <h4>Designed to track your cryptocurrency investments in realtime</h4>
+</div>
 
+<div class="container">
+
+<div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>Add Trade</h4>
+        </div>
+        
+        <form class="panel-body form-inline" >
+            <div class="form-group">
+                <label for="input-info">Trade Date</label>
+                <input type="text" class="form-control" id="date-input" placeholder="MM/DD/YYYY">
+            </div>
+            <div class="form-group">
+                <label for="input-info">Symbol</label>
+                <input type="text" class="form-control" id="symbol-input" placeholder="Coin Symbol">
+            </div>
+            <div class="form-group">
+                <label for="input-info">Trade Price $</label>
+                <input type="text" class="form-control" id="price-input" placeholder="$">
+            </div>
+            <div class="form-group">
+                <label for="input-info">Units traded</label>
+                <input type="text" class="form-control" id="units-input" placeholder="# units">
+            </div>
+            <div>
+                <br>
+            </div>
+            <button class="btn btn-default" id="add-trade-button" type="submit">Add another Trade</button>
+
+        </form>
+    </div>
+</div>
+<div class= "container">
+    <div class="row">
+
+        <div class="col-md-6" id="top-chart-view"> Total Net Profit/Loss $ vs Time</div>
+        <div class="col-md-6" id="bottom-chart-view"> Total Net Profit/Loss $ per Coin</div>
+    </div>
+</div>
+<div class= "container">
+<div class="panel panel-default">
+    <table class="table table-striped" id="emp-table">
+        <tr>
+            <th>Trade Date</th>
+            <th>Symbol</th>
+            <th>Trade Price $</th>
+            <th>Units Traded</th>
+            <th>Current Price $</th>
+            <th>Gain/Loss $ </th>
+        </tr>
+    </table>
+
+</div>
+<div class="row">
+        <div class="col-md-6"></div>
+        <div class="col-md-6 .col"> Total Gain/Loss $ </div>
+    </div>
+</div>
 
 
 
