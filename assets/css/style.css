@@ -1,0 +1,19 @@
+.footer	{
+	background-color: #eee;
+	color: black;
+}
+
+body {
+	background-image: url('../images/btc.jpg');
+	background-repeat:no-repeat;
+	background-size:100%;
+
+}
+
+.red {
+	color: red;
+}
+
+.green {
+	color: green;
+}
