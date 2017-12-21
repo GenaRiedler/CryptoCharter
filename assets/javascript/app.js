@@ -57,5 +57,5 @@ window.setInterval(function(){
 		coins_ticker = response;
 		
 	});
-	
-}, 1,800,000)
+
+}, 1800000)
