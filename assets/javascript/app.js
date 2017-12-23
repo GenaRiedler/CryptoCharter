@@ -41,7 +41,6 @@ $.ajax({
 		coins_price[key] = coins_ticker[j].price_usd;
 
 	}
-	console.log(coins_price);
 
 });
 
@@ -55,7 +54,29 @@ function displayTicker(){
 		var ticker_div = $('<li>');
 		ticker_div.attr('id', ticker_tracker);
 		ticker_div.text(coins_ticker[ticker_tracker].symbol + " " + coins_ticker[ticker_tracker].percent_change_24h);
+
+    if(i > 2){
+
+      ticker_div.attr('should-hide', 'true');
+
+    }
+    else{
+
+      ticker_div.attr('should-hide', 'false');
+
+    }
 		$('#ticker-view').append(ticker_div);
+
+    if(coins_ticker[ticker_tracker].percent_change_24h < 0){
+
+      ticker_div.attr('class' , 'red');
+
+    }else{
+
+      ticker_div.attr('class', 'green');
+
+    }
+
 		ticker_tracker++;
 		i++;
 
@@ -81,10 +102,6 @@ $('#add-trade-button').on('click', function(){
   current_symbol = $('#symbol-input').val();
   current_price = $('#price-input').val();
   current_units = $('#units-input').val();
-  console.log('date is: ' + current_date);
-  console.log('symbol is: ' + current_symbol);
-  console.log('price is: ' + current_price);
-  console.log('Amount is: ' + current_units);
 
 
 
@@ -122,7 +139,7 @@ database.ref().on('child_added', function(child_snapshot){
   //Creates the role column.
   var symbol_col = $('<td>').text(current_symbol);
   symbol_col.attr('symbol', current_symbol);
-  symbol_col.append(symbol_col);
+  table_row.append(symbol_col);
 
   //Creates the start date column.
   var price_col = $('<td>').text(current_price);
@@ -135,16 +152,19 @@ database.ref().on('child_added', function(child_snapshot){
   units_col.attr('units', current_units);
   table_row.append(units_col);
 
+  var real_price = coins_price[current_symbol];
+  var current_price_col = $('<td>').text(real_price);
+  current_price_col.attr('current-price', real_price);
+  table_row.append(current_price_col);
+
   //Creates the total billed column.
-  console.log((coins_price[current_symbol] - current_price) * current_units);
   var net_gain_loss = (coins_price[current_symbol] - current_price) * current_units;
-  console.log(net_gain_loss);
   var gain_loss_col = $('<td>').text(net_gain_loss);
   gain_loss_col.attr('net-gain-loss', net_gain_loss);
   table_row.append(gain_loss_col);
 
   //Appends entire row to the table.
-  $('#emp-table').append(table_row);
+  $('#trade-table').append(table_row);
 
 }, function(errorObject){
 
@@ -152,11 +172,12 @@ database.ref().on('child_added', function(child_snapshot){
 
 });
 
+
 window.setInterval(function(){
 
 	displayTicker();
 
-}, 5000)
+}, 5000);
 
 
 
@@ -171,4 +192,4 @@ window.setInterval(function(){
 		
 	});
 
-}, 1800000)
+}, 1800000);
