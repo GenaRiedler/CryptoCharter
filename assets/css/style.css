@@ -4,9 +4,15 @@
 }
 
 body {
-	background-image: url('../images/btc.jpg');
-	background-repeat:no-repeat;
-	background-size:100%;
+	background-image: url('../images/blue_bkgrd.jpg');
+	color: white;
+	font-family: 'Roboto', sans-serif;
+	margin-bottom: 40px;
+}
+
+.jumbotron {
+	background: transparent;
+	font-family: 'Ubuntu', sans-serif;
 
 }
 
@@ -16,4 +22,13 @@ body {
 
 .green {
 	color: green;
+}
+
+.panel {
+	background: transparent;
+}
+
+.navbar {
+	background-color: #060e1f;
+	border: none;
 }
