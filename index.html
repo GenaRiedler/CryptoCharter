@@ -34,37 +34,37 @@
 <div class="container">
 <div class="jumbotron text-center">
     <h1>CRYPTO CHARTER</h1>
-    <h4>Designed to track your cryptocurrency investments in realtime</h4>
+    <p>Designed to track your cryptocurrency investments in realtime</p>
 </div>
 
 <div class="container">
 
 <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4>Add Trade</h4>
+        <div class="panel-body">
+            <h3>Add Trade</h3>
         </div>
         
-        <form class="panel-body form-inline" >
-            <div class="form-group">
+        <form class="panel-body form" >
+            <div class="form-group col-md-3">
                 <label for="input-info">Trade Date</label>
                 <input type="text" class="form-control" id="date-input" placeholder="MM/DD/YYYY">
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-3">
                 <label for="input-info">Symbol</label>
                 <input type="text" class="form-control" id="symbol-input" placeholder="Coin Symbol">
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-3">
                 <label for="input-info">Trade Price $</label>
                 <input type="text" class="form-control" id="price-input" placeholder="$">
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-3">
                 <label for="input-info">Units traded</label>
                 <input type="text" class="form-control" id="units-input" placeholder="# units">
             </div>
             <div>
                 <br>
             </div>
-            <button class="btn btn-default" id="add-trade-button" type="submit">Add another Trade</button>
+            <button class="btn btn-default" id="add-trade-button" type="submit">Add Trade</button>
 
         </form>
     </div>
@@ -79,7 +79,7 @@
 <div class= "container">
 <h3>History of Trades</h3>
 <div class="panel panel-default">
-    <table class="table table-striped" id="trade-table">
+    <table class="table" id="trade-table">
         <tr>
             <th>Trade Date</th>
             <th>Symbol</th>
@@ -89,6 +89,16 @@
             <th>Gain/Loss $ </th>
         </tr>
     </table>
+
+</div>
+<!-- The Modal -->
+<div id="error-modal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div>
 
 </div>
 <div class="row">
