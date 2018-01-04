@@ -43,7 +43,7 @@ $.ajax({
 		coins_price[key] = coins_ticker[j].price_usd;
 
 	}
-displayNetGainChart();
+
 });
 
 //Builds and displays the ticker at the top of the navbar. Displays only the first five.
@@ -100,11 +100,20 @@ function displayTicker(){
 };
 
 function displayNetGainChart() {
-  console.log(coins_ticker);
+ // console.log(coins_ticker);
 
-  for (var i = 0; i < coins_ticker.length; i++) {
+  //console.log(database.ref().orderByKey());
+
+  var net_gain_list = '';
+  var symbols = '';
+
+  $('tr').each(function(index, element){
     
-  };
+    console.log('The index is: ' + index);
+    console.log(element);
+
+  })
+
 
   var chart = document.getElementById('net-gain').getContext("2d");
   var net_gain_chart = new Chart(chart, {
@@ -155,6 +164,9 @@ $('#add-trade-button').on('click', function(){
     units: current_units,
 
   });
+
+  displayNetGainChart();
+
 });
 
 //Displays the new employee upon being added. Takes only a snapshot of the 
@@ -172,39 +184,47 @@ database.ref().on('child_added', function(child_snapshot){
 
   //Creates the date column.
   var date_col = $('<td>').text(current_date);
-  date_col.attr('date', 'date');
+  date_col.attr('date', current_date);
+  date_col.attr('id', 'date');
   table_row.append(date_col);
 
   //Creates the symbol column.
   var symbol_col = $('<td>').text(current_symbol);
   symbol_col.attr('symbol', current_symbol);
+  symbol_col.attr('id', 'symbol');
   table_row.append(symbol_col);
 
   //Creates the trade price column.
   var price_col = $('<td>').text(current_price);
   price_col.attr('price', current_price);
+  price_col.attr('id', 'bought-price');
   table_row.append(price_col);
 
 
   //Creates the units column.
   var units_col = $('<td>').text(current_units);
   units_col.attr('units', current_units);
+  units_col.attr('id', 'units');
   table_row.append(units_col);
 
   //Creates the current price column
   var real_price = coins_price[current_symbol];
   var current_price_col = $('<td>').text(real_price);
   current_price_col.attr('current-price', real_price);
+  current_price_col.attr('id', 'current-price');
   table_row.append(current_price_col);
 
   //Creates the net gain/loss column.
   var net_gain_loss = (coins_price[current_symbol] - current_price) * current_units;
   var gain_loss_col = $('<td>').text(net_gain_loss);
   gain_loss_col.attr('net-gain-loss', net_gain_loss);
+  gain_loss_col.attr('id', 'net-gain-loss');
   table_row.append(gain_loss_col);
 
   //Appends entire row to the table.
   $('#trade-table').append(table_row);
+
+  displayNetGainChart();
 
 }, function(errorObject){
 
