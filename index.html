@@ -18,83 +18,91 @@
 </head>
 
 <body>
-
-
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div id="navbar" class="nav navbar-nav">
+    <nav id="navbar" class="navbar navbar-default navbar-fixed-top nav navbar-nav">
+        <div class="container-fluid">
                 <ul id="ticker-view" class="nav navbar-nav">
+                    <li>TICKER GOES HERE</li>
+                    <li>TICKER GOES HERE</li>
+                    <li>TICKER GOES HERE</li>
+                    <li>TICKER GOES HERE</li>
+                    <li>TICKER GOES HERE</li>
 
                 </ul>
-            
         </div>
-    </div>
-</nav>
+    </nav>
 
 <div class="container">
 <div class="jumbotron text-center">
     <h1>CRYPTO CHARTER</h1>
-    <h4>Designed to track your cryptocurrency investments in realtime</h4>
+    <p>Designed to track your cryptocurrency investments in realtime</p>
 </div>
 
-<div class="container">
-
 <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4>Add Trade</h4>
+        <div class="panel-body text-center">
+            <h3>Enter Trades</h3>
         </div>
         
-        <form class="panel-body form-inline" >
-            <div class="form-group">
+        <form class="panel-body form" >
+            <div class="form-group col-md-3">
                 <label for="input-info">Trade Date</label>
                 <input type="text" class="form-control" id="date-input" placeholder="MM/DD/YYYY">
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-3">
                 <label for="input-info">Symbol</label>
                 <input type="text" class="form-control" id="symbol-input" placeholder="Coin Symbol">
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-3">
                 <label for="input-info">Trade Price $</label>
                 <input type="text" class="form-control" id="price-input" placeholder="$">
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-3">
                 <label for="input-info">Units traded</label>
                 <input type="text" class="form-control" id="units-input" placeholder="# units">
             </div>
             <div>
                 <br>
             </div>
-            <button class="btn btn-default" id="add-trade-button" type="submit">Add another Trade</button>
+            <button class="btn btn-default center-block" id="add-trade-button" type="submit">Add Trade</button>
 
         </form>
     </div>
-</div>
-<div class= "container">
     <div class="row">
 
-        <div class="col-md-6" id="top-chart-view"> Total Net Profit/Loss $ vs Time</div>
-        <div class="col-md-6" id="bottom-chart-view"> Total Net Profit/Loss $ per Coin</div>
+        <div class="col-md-6" id="top-chart-view">Total Net Profit/Loss $ vs Time</div>
+        <div class="col-md-6" id="bottom-chart-view">Total Net Profit/Loss $ per Coin</div>
     </div>
-</div>
-<div class= "container">
+<div class="row container">
 <h3>History of Trades</h3>
 <div class="panel panel-default">
-    <table class="table table-striped" id="trade-table">
+    <table class="table" id="trade-table">
         <tr>
             <th>Trade Date</th>
             <th>Symbol</th>
             <th>Trade Price $</th>
             <th>Units Traded</th>
             <th>Current Price $</th>
-            <th>Gain/Loss $ </th>
+            <th>Gain/Loss $</th>
         </tr>
     </table>
 
 </div>
+
 <div class="row">
         <div class="col-md-6"></div>
-        <div class="col-md-6"> <h3>Total Gain/Loss $<span id="total-view"></span></div>
+        <div class="col-md-6"> <h3>Total Gain/Loss $<span id="total-view"></span></h3></div>
     </div>
+</div>
+
+    <!-- The Modal -->
+<div id="error-modal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div>
+
+</div>  
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
