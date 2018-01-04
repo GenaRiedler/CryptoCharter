@@ -1,6 +1,7 @@
 .footer	{
-	background-color: #eee;
-	color: black;
+	background-color: #b7b7b7;
+	color: #01050e;
+	padding-top: 10px;
 }
 
 body {
@@ -31,11 +32,19 @@ width: 100px;
 
 .panel {
 	background: transparent;
+	padding: 15px;
 }
 
 .navbar {
-	background-color: #060e1f;
+	background-color: #01050e;
 	border: none;
+}
+ul {
+	text-align: center;
+}
+li {
+	display: inline;
+	padding: 10px;
 }
 
 .panel-heading {
