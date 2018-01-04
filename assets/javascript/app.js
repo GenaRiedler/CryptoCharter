@@ -104,25 +104,34 @@ function displayNetGainChart() {
 
   //console.log(database.ref().orderByKey());
 
-  var net_gain_list = '';
-  var symbols = '';
+  var net_gain_list = [];
+  var symbols = [];
 
-  $('tr').each(function(index, element){
-    
-    console.log('The index is: ' + index);
-    console.log(element);
+  $('tr').each(function(index){
+
+    if(index != 0){
+      console.log('The index is: ' + index);
+      console.log('The symbol is: ' + $(this).find('#symbol').attr('symbol'));
+      console.log('The net gain is: ' + $(this).find('#net-gain-loss').attr('net-gain-loss'));
+      symbols.push($(this).find('#symbol').attr('symbol'));
+      net_gain_list.push($(this).find('#net-gain-loss').attr('net-gain-loss'));
+
+    }
 
   })
+
+  console.log('The list of gains is: ' + net_gain_list);
+  console.log('The list of symbols is: ' + symbols);
 
 
   var chart = document.getElementById('net-gain').getContext("2d");
   var net_gain_chart = new Chart(chart, {
     type: "bar",
     data: {
-      labels: ["Red", "Blue", "Yellow"],
+      labels: symbols,
       datasets: [{
         label: "Total Net Profit/Loss $ per Coin",
-        data: "",
+        data: net_gain_list,
       }]
     },
     options: {
@@ -232,12 +241,24 @@ database.ref().on('child_added', function(child_snapshot){
 
 });
 
+$(document).ready(function(){
+
+  displayNetGainChart();
+
+});
+
 //Updates the navbar ticker every five seconds.
 window.setInterval(function(){
 
 	displayTicker();
 
 }, 5000);
+
+window.setInterval(function(){
+
+  displayNetGainChart();
+
+}, 60000);
 
 
 //Updates the two coin data structures used every thirty minutes.
