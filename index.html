@@ -9,7 +9,7 @@
 
 
 <!-- 	Moment. js  -->
-  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 
 <!-- link CSS -->
 
@@ -68,7 +68,9 @@
     </div>
     <div class="row">
 
-        <div class="col-md-6" id="top-chart-view">Total Net Profit/Loss $ vs Time</div>
+        <div class="col-md-6" id="top-chart-view">
+            <canvas id="net-gain"></canvas>
+        </div>
         <div class="col-md-6" id="bottom-chart-view">Total Net Profit/Loss $ per Coin</div>
     </div>
 <div class="row container">
@@ -106,6 +108,7 @@
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src='assets/javascript/app.js'></script>
 

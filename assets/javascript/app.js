@@ -43,7 +43,7 @@ $.ajax({
 		coins_price[key] = coins_ticker[j].price_usd;
 
 	}
-
+displayNetGainChart();
 });
 
 //Builds and displays the ticker at the top of the navbar. Displays only the first five.
@@ -96,6 +96,37 @@ function displayTicker(){
 		ticker_tracker = 0;
 
 	}
+
+};
+
+function displayNetGainChart() {
+  console.log(coins_ticker);
+
+  for (var i = 0; i < coins_ticker.length; i++) {
+    
+  };
+
+  var chart = document.getElementById('net-gain').getContext("2d");
+  var net_gain_chart = new Chart(chart, {
+    type: "bar",
+    data: {
+      labels: ["Red", "Blue", "Yellow"],
+      datasets: [{
+        label: "Total Net Profit/Loss $ per Coin",
+        data: "",
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true
+
+          }
+        }]
+      }
+    }
+  });
 
 };
 
