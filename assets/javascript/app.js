@@ -110,6 +110,7 @@ function displayNetGainChart() {
   $('tr').each(function(index){
 
     if(index != 0){
+
       console.log('The index is: ' + index);
       console.log('The symbol is: ' + $(this).find('#symbol').attr('symbol'));
       console.log('The net gain is: ' + $(this).find('#net-gain-loss').attr('net-gain-loss'));
@@ -118,7 +119,7 @@ function displayNetGainChart() {
 
     }
 
-  })
+  });
 
   console.log('The list of gains is: ' + net_gain_list);
   console.log('The list of symbols is: ' + symbols);
