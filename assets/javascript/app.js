@@ -12,7 +12,7 @@ var total_gain = ''; //stores total gain of transaction
 
 //Code to initialize Firebase. This is Mateo's personal firebase config.
 var config = {
-	apiKey: "AIzaSyDf35aVp6HQZ9iZTXzPGBO5kI0-T5oMyGc",
+	 apiKey: "AIzaSyDf35aVp6HQZ9iZTXzPGBO5kI0-T5oMyGc",
     authDomain: "cryptocharters-48619.firebaseapp.com",
     databaseURL: "https://cryptocharters-48619.firebaseio.com",
     projectId: "cryptocharters-48619",
@@ -43,6 +43,8 @@ $.ajax({
 		coins_price[key] = coins_ticker[j].price_usd;
 
 	}
+
+  console.log(response);
 
 });
 
@@ -99,19 +101,18 @@ function displayTicker(){
 
 };
 
-function displayNetGainChart() {
- // console.log(coins_ticker);
-
-  //console.log(database.ref().orderByKey());
+function displayChart() {
 
   var net_gain_list = [];
   var symbols = [];
-  var background_list = [];
-  var border_list = [];
+  var background_bar_list = [];
+  var border_bar_list = [];
+  var background_line_list = [];
+  var border_line_list = [];
   var date_list = [];
   var total_list = [];
   var current_total = 0;
-
+  var trade_counter = 0;
 
   $('tr').each(function(index){
 
@@ -119,24 +120,66 @@ function displayNetGainChart() {
 
     if(index != 0){
 
-      symbols.push($(this).find('#symbol').attr('symbol'));
-      trade_profit = $(this).find('#net-gain-loss').attr('net-gain-loss');
-      trade_profit = parseInt(trade_profit);
-      net_gain_list.push(trade_profit);
+      if(symbols.indexOf($(this).find('#symbol').attr('symbol')) == -1){
 
-      date_list.push($(this).find("#date").attr("date"));
+        symbols.push($(this).find('#symbol').attr('symbol'));
+        trade_profit = $(this).find('#net-gain-loss').attr('net-gain-loss');
+        trade_profit = parseInt(trade_profit);
+        net_gain_list.push(trade_profit);
 
-      console.log('The trade_profit is: ' + trade_profit);
-      console.log('The type of trade_profit is: ' + typeof(trade_profit));
+      }
+      else if(symbols.indexOf($(this).find('#symbol').attr('symbol')) != -1){
 
-      current_total = current_total + trade_profit;
-      console.log('The current total is: ' + current_total);
+        var index_to_change = symbols.indexOf($(this).find('#symbol').attr('symbol'));
+        trade_profit = $(this).find('#net-gain-loss').attr('net-gain-loss');
+        trade_profit = parseInt(trade_profit);
+        net_gain_list[index_to_change] = net_gain_list[index_to_change] + trade_profit;
+        trade_counter--;
 
-      total_list.push(current_total);
+      }
 
+      if(date_list.indexOf($(this).find("#date").attr("date")) == -1){
+        
+        date_list.push($(this).find("#date").attr("date"));
+
+        console.log('The trade_profit is: ' + trade_profit);
+        console.log('The type of trade_profit is: ' + typeof(trade_profit));
+
+        current_total = current_total + trade_profit;
+        console.log('The current total is: ' + current_total);
+
+        total_list.push(current_total);
+      }
+      else if(date_list.indexOf($(this).find("#date").attr("date")) != -1){
+
+        var index_to_change = date_list.indexOf($(this).find('#date').attr('date'));
+        total_list[index_to_change] = total_list[index_to_change] + trade_profit;
+        trade_counter--;
+      }
+
+      trade_counter++;
+
+      if($(this).next().length == 0 && current_total > 0){
+        console.log('Greater than zero');
+        for(var j = 0; j < trade_counter; j++){
+          background_line_list.push("rgba(81, 255, 0, 0.5)");
+          border_line_list.push("rgba(81, 255, 0, 1)");
+        }
+
+      }
+      else if($(this).next().length == 0 && current_total < 0){
+        console.log('Less than zero');
+        for(var j = 0; j < trade_counter; j++){
+            background_line_list.push("rgba(255, 0, 0, 0.5)");
+            border_line_list.push("rgba(255, 0, 0, 1)");
+        }
+
+      }
     }
 
   });
+
+  $('#total-view').text(current_total);
 
   console.log('The list of gains is: ' + net_gain_list);
   console.log('The list of symbols is: ' + symbols);
@@ -145,18 +188,18 @@ function displayNetGainChart() {
 
   for (var i = 0; i < net_gain_list.length; i++) {
     if(net_gain_list[i] < 0) {
-      background_list.push("rgba(255, 0, 0, 0.5)");
-      border_list.push("rgba(255, 0, 0, 1)");
+      background_bar_list.push("rgba(255, 0, 0, 0.5)");
+      border_bar_list.push("rgba(255, 0, 0, 1)");
     }
     
     else if (net_gain_list[i] > 0) {
-      background_list.push("rgba(81, 255, 0, 0.5)");
-      border_list.push("rgba(81, 255, 0, 1)");
+      background_bar_list.push("rgba(81, 255, 0, 0.5)");
+      border_bar_list.push("rgba(81, 255, 0, 1)");
     }
 
     else {
-      background_list.push();
-      border_list.push();
+      background_bar_list.push();
+      border_bar_list.push();
     }
   };
 
@@ -168,8 +211,8 @@ function displayNetGainChart() {
       datasets: [{
         label: "Total Net Profit/Loss $ per Coin",
         data: net_gain_list,
-        backgroundColor: background_list,
-        borderColor: border_list,
+        backgroundColor: background_bar_list,
+        borderColor: border_bar_list,
         borderWidth: 1
       }]
     },
@@ -206,8 +249,8 @@ function displayNetGainChart() {
       datasets: [{
         label: "Total Trade Profit",
         data: total_list,
-        backgroundColor: background_list,
-        borderColor: border_list,
+        backgroundColor: background_line_list,
+        borderColor: border_line_list,
         borderWidth: 1
       }]
     },
@@ -266,7 +309,7 @@ $('#add-trade-button').on('click', function(){
 
   });
 
-  displayNetGainChart();
+  displayChart();
 
 });
 
@@ -325,7 +368,7 @@ database.ref().on('child_added', function(child_snapshot){
   //Appends entire row to the table.
   $('#trade-table').append(table_row);
 
-  displayNetGainChart();
+  displayChart();
 
 }, function(errorObject){
 
@@ -335,7 +378,7 @@ database.ref().on('child_added', function(child_snapshot){
 
 $(document).ready(function(){
 
-  displayNetGainChart();
+  displayChart();
 
 });
 
@@ -348,9 +391,9 @@ window.setInterval(function(){
 
 window.setInterval(function(){
 
-  displayNetGainChart();
+  displayChart();
 
-}, 60000);
+}, 60256);
 
 
 //Updates the two coin data structures used every thirty minutes.
@@ -371,4 +414,4 @@ window.setInterval(function(){
     }
 	});
 
-}, 1800000);
+}, 1800274);
