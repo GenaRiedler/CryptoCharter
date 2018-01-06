@@ -12,7 +12,7 @@ var total_gain = ''; //stores total gain of transaction
 
 //Code to initialize Firebase. This is Mateo's personal firebase config.
 var config = {
-	apiKey: "AIzaSyDf35aVp6HQZ9iZTXzPGBO5kI0-T5oMyGc",
+	 apiKey: "AIzaSyDf35aVp6HQZ9iZTXzPGBO5kI0-T5oMyGc",
     authDomain: "cryptocharters-48619.firebaseapp.com",
     databaseURL: "https://cryptocharters-48619.firebaseio.com",
     projectId: "cryptocharters-48619",
