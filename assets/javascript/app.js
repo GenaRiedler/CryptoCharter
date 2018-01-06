@@ -56,7 +56,7 @@ function displayTicker(){
 	var i = 1;
 
   //Loops five times each time, displaying five different coins and their information.
-	while(i%8 != 0){
+	while(i%7 != 0){
 
 		var ticker_div = $('<li>');
 		ticker_div.attr('id', ticker_tracker);
