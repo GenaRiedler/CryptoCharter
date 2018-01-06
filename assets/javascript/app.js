@@ -176,11 +176,21 @@ function displayNetGainChart() {
     options: {
       scales: {
         yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Profit / Loss'
+          },
           ticks: {
             beginAtZero:true
-
           }
-        }]
+
+        }],
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Coin Symbol'
+        }
+      }]
       },
       legend: {
         display: false
@@ -202,9 +212,28 @@ function displayNetGainChart() {
       }]
     },
     options: {
+      scales: {
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Profit / Loss'
+          },
+          ticks: {
+            beginAtZero:true
+          }
+
+        }],
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Date'
+        }
+      }]
+      },
       legend: {
-        display: true
-      }
+        display: false
+      },
+
     }
   });
 

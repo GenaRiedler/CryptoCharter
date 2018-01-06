@@ -30,9 +30,13 @@ width: 100px;
 	color: rgb(81, 255, 0);
 }
 
-.panel {
+.panel-table {
 	background: transparent;
 	padding: 15px;
+}
+.panel-chart {
+    background: white;
+    padding: 15px;
 }
 
 .navbar {
@@ -50,6 +54,10 @@ li {
 .panel-heading {
 	color: white;
 	background: transparent;
+}
+
+canvas {
+    padding-top: 15px;
 }
 /* The Modal (background) */
 .modal {

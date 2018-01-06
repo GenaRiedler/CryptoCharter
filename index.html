@@ -37,7 +37,7 @@
     <p>Designed to track your cryptocurrency investments in realtime</p>
 </div>
 
-<div class="panel panel-default">
+<div class="panel panel-default panel-table">
         <div class="panel-body text-center">
             <h3>Enter Trades</h3>
         </div>
@@ -66,19 +66,24 @@
 
         </form>
     </div>
-    <div class="row">
 
-        <div class="col-md-6" id="top-chart-view">
+        <div class="row container" id="bottom-chart-view">
+            <h3>Total Trade Profit</h3>
+            <div class="panel panel-default panel-chart">
+            <canvas id="total-profit"></canvas>
+            </div>
+        </div>
+
+        <div class="row container" id="top-chart-view">
+            <h3>Total Trade Profit</h3>
+            <div class="panel panel-default panel-chart">
             <canvas id="net-gain"></canvas>
         </div>
-        <div class="col-md-6" id="bottom-chart-view">
-            <canvas id="total-profit"></canvas>
         </div>
 
-    </div>
 <div class="row container">
 <h3>History of Trades</h3>
-<div class="panel panel-default">
+<div class="panel panel-default panel-table">
     <table class="table" id="trade-table">
         <tr>
             <th>Trade Date</th>
