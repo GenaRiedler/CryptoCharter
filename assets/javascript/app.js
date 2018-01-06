@@ -54,11 +54,11 @@ function displayTicker(){
 	var i = 1;
 
   //Loops five times each time, displaying five different coins and their information.
-	while(i%6 != 0){
+	while(i%8 != 0){
 
 		var ticker_div = $('<li>');
 		ticker_div.attr('id', ticker_tracker);
-		ticker_div.text(" " + coins_ticker[ticker_tracker].symbol + " " + coins_ticker[ticker_tracker].percent_change_24h + " ");
+		ticker_div.text(" " + coins_ticker[ticker_tracker].symbol + " " + "$" + coins_ticker[ticker_tracker].price_usd + " "+ coins_ticker[ticker_tracker].percent_change_24h + "%");
 
     //Adds an attribute used to hide coins if the screen is smaller
     if(i > 2){
