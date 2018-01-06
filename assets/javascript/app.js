@@ -54,11 +54,11 @@ function displayTicker(){
 	var i = 1;
 
   //Loops five times each time, displaying five different coins and their information.
-	while(i%6 != 0){
+	while(i%8 != 0){
 
 		var ticker_div = $('<li>');
 		ticker_div.attr('id', ticker_tracker);
-		ticker_div.text(" " + coins_ticker[ticker_tracker].symbol + " " + coins_ticker[ticker_tracker].percent_change_24h + " ");
+		ticker_div.text(" " + coins_ticker[ticker_tracker].symbol + " " + "$" + coins_ticker[ticker_tracker].price_usd + " "+ coins_ticker[ticker_tracker].percent_change_24h + "%");
 
     //Adds an attribute used to hide coins if the screen is smaller
     if(i > 2){
@@ -106,16 +106,33 @@ function displayNetGainChart() {
 
   var net_gain_list = [];
   var symbols = [];
+  var background_list = [];
+  var border_list = [];
+  var date_list = [];
+  var total_list = [];
+  var current_total = 0;
+
 
   $('tr').each(function(index){
 
+    var trade_profit = 0;
+
     if(index != 0){
 
-      console.log('The index is: ' + index);
-      console.log('The symbol is: ' + $(this).find('#symbol').attr('symbol'));
-      console.log('The net gain is: ' + $(this).find('#net-gain-loss').attr('net-gain-loss'));
       symbols.push($(this).find('#symbol').attr('symbol'));
-      net_gain_list.push($(this).find('#net-gain-loss').attr('net-gain-loss'));
+      trade_profit = $(this).find('#net-gain-loss').attr('net-gain-loss');
+      trade_profit = parseInt(trade_profit);
+      net_gain_list.push(trade_profit);
+
+      date_list.push($(this).find("#date").attr("date"));
+
+      console.log('The trade_profit is: ' + trade_profit);
+      console.log('The type of trade_profit is: ' + typeof(trade_profit));
+
+      current_total = current_total + trade_profit;
+      console.log('The current total is: ' + current_total);
+
+      total_list.push(current_total);
 
     }
 
@@ -123,7 +140,25 @@ function displayNetGainChart() {
 
   console.log('The list of gains is: ' + net_gain_list);
   console.log('The list of symbols is: ' + symbols);
+  console.log('The list of dates is: ' + date_list + '\n');
+  console.log('The list of totals is: ' + total_list + '\n');
 
+  for (var i = 0; i < net_gain_list.length; i++) {
+    if(net_gain_list[i] < 0) {
+      background_list.push("rgba(255, 0, 0, 0.5)");
+      border_list.push("rgba(255, 0, 0, 1)");
+    }
+    
+    else if (net_gain_list[i] > 0) {
+      background_list.push("rgba(81, 255, 0, 0.5)");
+      border_list.push("rgba(81, 255, 0, 1)");
+    }
+
+    else {
+      background_list.push();
+      border_list.push();
+    }
+  };
 
   var chart = document.getElementById('net-gain').getContext("2d");
   var net_gain_chart = new Chart(chart, {
@@ -133,6 +168,9 @@ function displayNetGainChart() {
       datasets: [{
         label: "Total Net Profit/Loss $ per Coin",
         data: net_gain_list,
+        backgroundColor: background_list,
+        borderColor: border_list,
+        borderWidth: 1
       }]
     },
     options: {
@@ -143,9 +181,33 @@ function displayNetGainChart() {
 
           }
         }]
+      },
+      legend: {
+        display: false
       }
     }
   });
+
+  var profit_chart = document.getElementById('total-profit').getContext("2d");
+  var total_profit_chart = new Chart(profit_chart, {
+    type: "line",
+    data: {
+      labels: date_list,
+      datasets: [{
+        label: "Total Trade Profit",
+        data: total_list,
+        backgroundColor: background_list,
+        borderColor: border_list,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      legend: {
+        display: true
+      }
+    }
+  });
+
 
 };
 
