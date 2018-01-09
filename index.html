@@ -28,13 +28,14 @@
 <div class="jumbotron text-center">
     <h1>CRYPTO CHARTER</h1>
     <p>Designed to track your cryptocurrency investments in realtime</p>
+    <button class="btn btn-primary center-block" id="trade-btn">Add a Trade</button>
+
 </div>
 
-        <button class="btn btn-default center-block" id="trade-btn">Add a Trade</button>
 
-            <div id='trade-view' class='modal'>
+            <div id='trade-view' class='container modal modal-content'>
                 <span class="close">&times;</span>
-                <div class="panel panel-default panel-table">
+                <div class="">
                     <div class="panel-body text-center">
                         <h3>Enter Trades</h3>
                     </div>
@@ -59,51 +60,48 @@
                         
                         <br>
 
-                        <button class="btn btn-default center-block" id="add-trade-button" type="submit">Add Trade</button>
+                        <button class="btn btn-primary center-block" id="add-trade-button" type="submit">Add Trade</button>
                     </form>
                 </div>
             </div>
-
-
-            <div class="row " id="bottom-chart-view">
-                <h3>Total Trade Profit</h3>
-                <div class="panel panel-default panel-chart">
-                    <canvas id="total-profit"></canvas>
-                </div>
-
-        <div class="row container" id="bottom-chart-view">
+<div class="tab-wrapper">
+    <ul class="nav nav-pills">
+            <li class="active"><a href="#1a" data-toggle="tab">History Of Trades</a>
+            </li>
+            <li><a href="#2a" data-toggle="tab">Total Trade Profit Chart</a>
+            </li>
+            <li><a href="#3a" data-toggle="tab">Net Profit/Loss $ Per Coin</a>
+            </li>
+    </ul>
+    <div class="tab-content clearfix">
+        <div class="row tab-pane fade panel panel-default panel-chart" id="2a">
             <h3>Total Trade Profit</h3>
-            <div class="panel panel-default panel-chart">
             <canvas id="total-profit"></canvas>
-            </div>
         </div>
 
-        <div class="row container" id="top-chart-view">
-            <h3>Total Trade Profit</h3>
-            <div class="panel panel-default panel-chart">
+        <div class="row tab-pane fade panel panel-default panel-chart" id="3a">
+            <h3>Net Profit/Loss $ Per Coin</h3>
             <canvas id="net-gain"></canvas>
         </div>
+
+        <div class="row tab-pane fade in active panel-table" id="1a">
+        <h3>History of Trades</h3>
+            <table class="table" id="trade-table">
+                <tr>
+                    <th>Trade Date</th>
+                    <th>Symbol</th>
+                    <th>Trade Price $</th>
+                    <th>Units Traded</th>
+                    <th>Current Price $</th>
+                    <th>Gain/Loss $</th>
+                </tr>
+            </table>    
+
+        <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6"><h3>Total Profit Gain/Profit Loss $<span id="total-view"></span></h3></div>
+            </div>
         </div>
-
-<div class="row container">
-<h3>History of Trades</h3>
-<div class="panel panel-default panel-table">
-    <table class="table" id="trade-table">
-        <tr>
-            <th>Trade Date</th>
-            <th>Symbol</th>
-            <th>Trade Price $</th>
-            <th>Units Traded</th>
-            <th>Current Price $</th>
-            <th>Gain/Loss $</th>
-        </tr>
-    </table>
-
-</div>
-
-<div class="row">
-        <div class="col-md-6"></div>
-        <div class="col-md-6"><h3>Total Profit Gain/Profit Loss $<span id="total-view"></span></h3></div>
     </div>
 </div>
 
@@ -113,6 +111,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src='assets/javascript/app.js'></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
 <div class="footer navbar-fixed-bottom">
     <p class="text-center">
