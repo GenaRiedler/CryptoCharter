@@ -31,6 +31,10 @@ width: 100px;
 	color: rgb(81, 255, 0);
 }
 
+.panel {
+
+    background: transparent;
+}
 .panel-table {
 	background: transparent;
 	padding: 15px;
@@ -39,6 +43,7 @@ width: 100px;
     background: white;
     padding: 15px;
 }
+
 
 .container-fluid {
     margin: 0 auto;
@@ -68,8 +73,25 @@ li {
 canvas {
     padding-top: 15px;
 }
+
+#tab-wrapper .nav-pills > li > a {
+  border-radius: 4px;
+}
+
+#tab-wrapper .tab-content {
+  color: white;
+  padding: 5px 15px;
+}
+.panel-trade-table {
+    border: solid white 1px;
+    border-radius: 4px;
+
+ }
+
+
 /* The Modal (background) */
 .modal {
+
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
