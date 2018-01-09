@@ -1,47 +1,63 @@
 .footer	{
+
 	background-color: #b7b7b7;
 	color: #01050e;
-	padding-top: 10px;
+
 }
 
 body {
+
 	background-image: url('../images/blue_bkgrd.jpg');
 	color: #b7b7b7;
 	font-family: 'Roboto', sans-serif;
 	margin-bottom: 40px;
+
 }
 
 #add-trade-button {
-width: 100px;
+
+    width: 100px;
 
 }
 
 .jumbotron {
+
 	background: transparent;
 	font-family: 'Ubuntu', sans-serif;
 
 }
 
 .red {
+
 	color: rgb(255, 0, 0);
+
 }
 
 .green {
+
 	color: rgb(81, 255, 0);
+
 }
 
 .panel-table {
+
 	background: transparent;
 	padding: 15px;
     border: solid white 1px;
     border-radius: 4px;
+
 }
 .panel-chart {
+
     background: white;
     padding: 15px;
+    width: 100%;
+    height: 25%;
+
 }
 
 .container-fluid {
+
     margin: 0 auto;
     width: 100%;
     float: center;
@@ -50,27 +66,39 @@ width: 100px;
 
 
 ul {
+
 	margin:0 auto;
     padding:0;
     list-style-type:none;
     text-align:center;
   
 }
+
 li {
+
 	padding: 10px;
     display:inline;
+
 }
 
 .panel-heading {
+
 	color: white;
 	background: transparent;
+
 }
 
 canvas {
+
     padding-top: 15px;
+    width: 50%;
+    height: 50%;
+
 }
+
 /* The Modal (background) */
 .modal {
+
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -81,30 +109,42 @@ canvas {
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+
 }
 
 /* Modal Content/Box */
 .modal-content {
+
     background-color: rgba(0, 0, 0, 0.7);
     margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
+    padding: 5px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-    height: 80%;
+    width: 70%; /* Could be more or less, depending on screen size */
+    height: 70%;
+    margin-bottom: 15%;
+
 }
 
 /* The Close Button */
 .close {
+
     color: white;
     float: right;
     font-size: 28px;
     font-weight: bold;
+
 }
 
 .close:hover,
 .close:focus {
+
     color: white;
     text-decoration: none;
     cursor: pointer;
+
+}
+
+.gainLoss {
+    padding-bottom: 50px;
 }
 

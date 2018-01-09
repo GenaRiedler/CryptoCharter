@@ -18,93 +18,91 @@
 </head>
 
 <body>
-        <div class="container-fluid">
-                <ul id="ticker-view">
-                    <li>TICKER GOES HERE</li>
-                </ul>
-        </div>
-
-<div class="container">
-<div class="jumbotron text-center">
-    <h1>CRYPTO CHARTER</h1>
-    <p>Designed to track your cryptocurrency investments in realtime</p>
-    <button class="btn btn-primary center-block" id="trade-btn">Add a Trade</button>
-
+<div class="container-fluid">
+    <ul id="ticker-view">
+        <li>TICKER GOES HERE</li>
+    </ul>
 </div>
 
-
-            <div id='trade-view' class='container modal modal-content'>
-                <span class="close">&times;</span>
-                <div class="">
-                    <div class="panel-body text-center">
-                        <h3>Enter Trades</h3>
-                    </div>
-                    
-                    <form class="panel-body form" >
-                        <div class="form-group col-md-3">
-                            <label for="input-info">Trade Date</label>
-                            <input type="text" class="form-control" id="date-input" placeholder="MM/DD/YYYY">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="input-info">Symbol</label>
-                            <input type="text" class="form-control" id="symbol-input" placeholder="Coin Symbol">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="input-info">Trade Price $</label>
-                            <input type="text" class="form-control" id="price-input" placeholder="$">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="input-info">Units traded</label>
-                            <input type="text" class="form-control" id="units-input" placeholder="# units">
-                        </div>
-                        
-                        <br>
-
-                        <button class="btn btn-primary center-block" id="add-trade-button" type="submit">Add Trade</button>
-                    </form>
+<div class="container">
+    <div class="col-xs-12">
+        <div class="jumbotron text-center">
+            <h1>CRYPTO CHARTER</h1>
+            <p>Designed to track your cryptocurrency investments in realtime</p>
+            <button class="btn btn-primary center-block" id="trade-btn">Add a Trade</button>
+        </div>
+        <div id='trade-view' class='container modal modal-content'>
+            <span class="close">&times;</span>
+            <div class="panel-body text-center">
+                <h3>Enter Trades</h3>
+            </div>  
+            <form class="panel-body form" >
+                <div class="form-group col-md-3">
+                    <label for="input-info">Trade Date</label>
+                    <input type="text" class="form-control" id="date-input" placeholder="MM/DD/YYYY">
                 </div>
-            </div>
-<div class="tab-wrapper">
-    <ul class="nav nav-pills">
-            <li class="active"><a href="#1a" data-toggle="tab">History Of Trades</a>
-            </li>
-            <li><a href="#2a" data-toggle="tab">Total Trade Profit Chart</a>
-            </li>
-            <li><a href="#3a" data-toggle="tab">Net Profit/Loss $ Per Coin</a>
-            </li>
-    </ul>
-    <div class="tab-content clearfix">
-        <div class="row tab-pane fade panel panel-default panel-chart" id="2a">
-            <h3>Total Trade Profit</h3>
-            <canvas id="total-profit"></canvas>
+                <div class="form-group col-md-3">
+                    <label for="input-info">Symbol</label>
+                    <input type="text" class="form-control" id="symbol-input" placeholder="Coin Symbol">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="input-info">Trade Price $</label>
+                    <input type="text" class="form-control" id="price-input" placeholder="$">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="input-info">Units traded</label>
+                    <input type="text" class="form-control" id="units-input" placeholder="# units">
+                </div>    
+                <br>
+                <button class="btn btn-primary center-block" id="add-trade-button" type="submit">Add Trade</button>
+            </form>
         </div>
-
-        <div class="row tab-pane fade panel panel-default panel-chart" id="3a">
-            <h3>Net Profit/Loss $ Per Coin</h3>
-            <canvas id="net-gain"></canvas>
-        </div>
-
-        <div class="row tab-pane fade in active panel-table" id="1a">
-        <h3>History of Trades</h3>
-            <table class="table" id="trade-table">
-                <tr>
-                    <th>Trade Date</th>
-                    <th>Symbol</th>
-                    <th>Trade Price $</th>
-                    <th>Units Traded</th>
-                    <th>Current Price $</th>
-                    <th>Gain/Loss $</th>
-                </tr>
-            </table>    
-
-        <div class="row">
-                <div class="col-md-6"></div>
-                <div class="col-md-6"><h3>Total Profit Gain/Profit Loss $<span id="total-view"></span></h3></div>
+        <div class="tab-wrapper">
+            <ul class="nav nav-pills">
+                <li class="active">
+                    <a href="#1a" data-toggle="tab">History Of Trades</a>
+                </li>
+                <li>
+                    <a href="#2a" data-toggle="tab">Total Trade Profit Chart</a>
+                </li>
+                <li>
+                    <a href="#3a" data-toggle="tab">Net Profit/Loss $ Per Coin</a>
+                </li>
+            </ul>
+            <div class="tab-content clearfix">
+                <div class="row tab-pane fade panel panel-default panel-chart" id="2a">
+                    <h3>Total Trade Profit</h3>
+                    <canvas id="total-profit"></canvas>
+                </div>
+                <div class="row tab-pane fade panel panel-default panel-chart" id="3a">
+                    <h3>Net Profit/Loss $ Per Coin</h3>
+                    <canvas id="net-gain"></canvas>
+                </div>
+                <div class="row tab-pane fade in active panel-table" id="1a">
+                    <h3>History of Trades</h3>
+                    <table class="table" id="trade-table">
+                        <tr>
+                            <th>Trade Date</th>
+                            <th>Symbol</th>
+                            <th>Trade Price $</th>
+                            <th>Units Traded</th>
+                            <th>Current Price $</th>
+                            <th>Gain/Loss $</th>
+                        </tr>
+                    </table>    
+                    <div class="row">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-6"><h3>Total Profit Gain/Profit Loss $<span id="total-view"></span></h3></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
+<div class="footer navbar-fixed-bottom">
+        <p class="text-center">
+            &#9400; Copyright 2017 Praneet Row, Mateo Vargas , Gena Rielder, Froilan Medina
+        </p>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
@@ -112,13 +110,6 @@
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src='assets/javascript/app.js'></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
-<div class="footer navbar-fixed-bottom">
-    <p class="text-center">
-        &#9400; Copyright 2017 Praneet Row, Mateo Vargas , Gena Rielder, Froilan Medina
-    </p>
-</div>
 </body>
 
 </html>
