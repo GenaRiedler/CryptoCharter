@@ -2,6 +2,7 @@
 var coins_ticker = ""; //Stores response from Coinmap API
 var ticker_tracker = 0; //Tracks where we are in the ticker
 var coins_price = {}; //Stores object to link symbol to current price
+var valid_symbols = [];
 var current_date = ""; //Stores date for current transaction
 var current_symbol = ''; //Stores symbol for the current transaction
 var current_price = ''; //Stores price for the current transaction
@@ -40,6 +41,7 @@ $.ajax({
 	for(var j = 0; j < coins_ticker.length; j++){
 
 		var key = coins_ticker[j].symbol;
+    valid_symbols.push(key);
 		coins_price[key] = coins_ticker[j].price_usd;
 
 	}
@@ -292,6 +294,18 @@ function displayChart() {
 
 };
 
+$('#trade-btn').on('click', function(){
+
+  $('#trade-view').show();
+
+});
+
+$(document).on('click' , '.close', function(){
+
+  $('#trade-view').hide('slow');
+
+});
+
 //Event listener that runs function upon clicking submit.
 $('#add-trade-button').on('click', function(){
 
@@ -305,8 +319,15 @@ $('#add-trade-button').on('click', function(){
   current_price = $('#price-input').val();
   current_units = $('#units-input').val();
 
+  if(valid_symbols.indexOf(current_symbol) == -1){
 
+    $('#trade-view').empty();
+    $('#trade-view').append('<span class="close">&times;</span>' +
+                            '<div class="panel panel-default panel-table">' +
+                            '<h2>ERROR! Symbol does not exist in database. Please choose another coin.' +
+                            '</div>');
 
+  }
   //Pushes the individual entry to the database. Push adds it as one 
   //item with a single unique id.
   database.ref().push({
