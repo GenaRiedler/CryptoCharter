@@ -46,6 +46,8 @@ $.ajax({
 
 	}
 
+  $('#trade-table').show();
+
 });
 
 //Builds and displays the ticker at the top of the navbar. Displays only the first five.
@@ -311,6 +313,12 @@ $('#trade-btn').on('click', function(){
 $(document).on('click' , '.close', function(){
 
   $('#trade-view').hide('slow');
+
+});
+
+$(document).ready(function(){
+
+  $('#trade-table').hide();
 
 });
 
