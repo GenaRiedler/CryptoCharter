@@ -149,17 +149,20 @@ function displayChart() {
         console.log('The current total is: ' + current_total);
 
         total_list.push(current_total);
+
       }
       else if(date_list.indexOf($(this).find("#date").attr("date")) != -1){
 
         var index_to_change = date_list.indexOf($(this).find('#date').attr('date'));
         total_list[index_to_change] = total_list[index_to_change] + trade_profit;
         trade_counter--;
+
       }
 
       trade_counter++;
 
       if($(this).next().length == 0 && current_total > 0){
+
         console.log('Greater than zero');
         for(var j = 0; j < trade_counter; j++){
           background_line_list.push("rgba(81, 255, 0, 0.5)");
@@ -168,6 +171,7 @@ function displayChart() {
 
       }
       else if($(this).next().length == 0 && current_total < 0){
+
         console.log('Less than zero');
         for(var j = 0; j < trade_counter; j++){
             background_line_list.push("rgba(255, 0, 0, 0.5)");
@@ -179,6 +183,9 @@ function displayChart() {
 
   });
 
+  console.log(date_list);
+  console.log(total_list);
+
   $('#total-view').text(current_total);
 
   console.log('The list of gains is: ' + net_gain_list);
@@ -187,6 +194,7 @@ function displayChart() {
   console.log('The list of totals is: ' + total_list + '\n');
 
   for (var i = 0; i < net_gain_list.length; i++) {
+
     if(net_gain_list[i] < 0) {
       background_bar_list.push("rgba(255, 0, 0, 0.5)");
       border_bar_list.push("rgba(255, 0, 0, 1)");
@@ -201,6 +209,7 @@ function displayChart() {
       background_bar_list.push();
       border_bar_list.push();
     }
+    
   };
 
   var chart = document.getElementById('net-gain').getContext("2d");
@@ -322,9 +331,11 @@ database.ref().on('child_added', function(child_snapshot){
   current_symbol = child_snapshot.val().symbol;
   current_price = child_snapshot.val().price;
   current_units = child_snapshot.val().units;
+  current_id = child_snapshot.key;
 
   //Creates the table row
   var table_row = $('<tr>');
+  table_row.attr('id', current_id);
 
   //Creates the date column.
   var date_col = $('<td>').text(current_date);
@@ -365,6 +376,12 @@ database.ref().on('child_added', function(child_snapshot){
   gain_loss_col.attr('id', 'net-gain-loss');
   table_row.append(gain_loss_col);
 
+  var remove_btn = $('<button>').text('Remove Entry');
+  remove_btn.attr('id', 'remove-btn');
+  remove_btn.attr('entry-id', current_id);
+  table_row.append(remove_btn);
+
+
   //Appends entire row to the table.
   $('#trade-table').append(table_row);
 
@@ -374,6 +391,24 @@ database.ref().on('child_added', function(child_snapshot){
 
     console.log("The read failed: " + errorObject.code);
 
+});
+
+$(document).on('click', '#remove-btn', function(){
+
+  var _id = $('#remove-btn').attr('entry-id');
+  console.log(_id);
+
+  var to_remove = database.ref(_id);
+
+  to_remove.remove().then(function(){
+
+    $('#' + _id).empty();
+
+  }).catch(function(error){
+
+    console.log(error.message);
+
+  });
 });
 
 $(document).ready(function(){
