@@ -58,7 +58,7 @@ function displayTicker(){
 	var i = 1;
 
   //Loops five times each time, displaying five different coins and their information.
-	while(i%7 != 0){
+	while(i%8 != 0){
 
 		var ticker_div = $('<li>');
 		ticker_div.attr('id', ticker_tracker);
@@ -91,6 +91,13 @@ function displayTicker(){
 
 		ticker_tracker++;
 		i++;
+    
+    if(coins_ticker[ticker_tracker] == undefined){
+
+      ticker_tracker = 0;
+
+    }
+
 
 	}
 
@@ -172,7 +179,6 @@ function displayChart() {
       //the line graph's color.
       if($(this).next().length == 0 && current_total > 0){
 
-        console.log('Greater than zero');
         for(var j = 0; j < trade_counter; j++){
           background_line_list.push("rgba(81, 255, 0, 0.5)");
           border_line_list.push("rgba(81, 255, 0, 1)");
@@ -181,7 +187,6 @@ function displayChart() {
       }
       else if($(this).next().length == 0 && current_total < 0){
 
-        console.log('Less than zero');
         for(var j = 0; j < trade_counter; j++){
             background_line_list.push("rgba(255, 0, 0, 0.5)");
             border_line_list.push("rgba(255, 0, 0, 1)");
@@ -331,7 +336,37 @@ $('#add-trade-button').on('click', function(){
                             '<div class="panel panel-default panel-table">' +
                             '<h2>ERROR! Symbol does not exist in database. Please choose another coin.' +
                             '</div>');
-    return;
+    window.setTimeout(function(){
+
+      $('#trade-view').empty();
+      $('#trade-view').append('<span class="close">&times;</span>' +
+                              '<div class="panel-body text-center">' +
+                              '<h3>Enter Trades</h3>' + 
+                              '</div>' +   
+                              '<form class="panel-body form" >' + 
+                              '<div class="form-group col-md-3">' + 
+                              '<label for="input-info">Trade Date</label>' + 
+                              '<input type="text" class="form-control" id="date-input" placeholder="MM/DD/YYYY">' + 
+                              '</div>' + 
+                              '<div class="form-group col-md-3">' + 
+                              '<label for="input-info">Symbol</label>' + 
+                              '<input type="text" class="form-control" id="symbol-input" placeholder="Coin Symbol">' + 
+                              '</div>' + 
+                              '<div class="form-group col-md-3">' + 
+                              '<label for="input-info">Trade Price $</label>' + 
+                              '<input type="text" class="form-control" id="price-input" placeholder="$">' + 
+                              '</div>' + 
+                              '<div class="form-group col-md-3">' + 
+                              '<label for="input-info">Units traded</label>' +
+                              '<input type="text" class="form-control" id="units-input" placeholder="# units">' +
+                              '</div>' +     
+                              '<br>'+ 
+                              '<button class="btn btn-primary center-block" id="add-trade-button" type="submit">Add Trade</button>' +
+                              '</form>'
+                              );
+    }, 3000);
+
+    return; 
 
   }
   //Pushes the individual entry to the database. Push adds it as one 
@@ -404,6 +439,7 @@ database.ref().on('child_added', function(child_snapshot){
   table_row.append(gain_loss_col);
 
   var remove_btn = $('<button>').text('Remove Entry');
+  remove_btn.attr('class', 'btn btn-default btn-xs');
   remove_btn.attr('id', 'remove-btn');
   remove_btn.attr('entry-id', current_id);
   table_row.append(remove_btn);
