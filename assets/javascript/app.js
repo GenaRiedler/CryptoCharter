@@ -2,7 +2,7 @@
 var coins_ticker = ""; //Stores response from Coinmap API
 var ticker_tracker = 0; //Tracks where we are in the ticker
 var coins_price = {}; //Stores object to link symbol to current price
-var valid_symbols = [];
+var valid_symbols = []; //Tracks the list of valid symbols for our application
 var current_date = ""; //Stores date for current transaction
 var current_symbol = ''; //Stores symbol for the current transaction
 var current_price = ''; //Stores price for the current transaction
@@ -37,7 +37,7 @@ $.ajax({
 
 	displayTicker();
 
-  //Creates object linking coin symbol to price.
+  //Creates object linking coin symbol to price and getting our valid symbols
 	for(var j = 0; j < coins_ticker.length; j++){
 
 		var key = coins_ticker[j].symbol;
@@ -103,25 +103,30 @@ function displayTicker(){
 
 };
 
+//Function that displays both of the graphs
 function displayChart() {
 
-  var net_gain_list = [];
-  var symbols = [];
-  var background_bar_list = [];
-  var border_bar_list = [];
-  var background_line_list = [];
-  var border_line_list = [];
-  var date_list = [];
-  var total_list = [];
-  var current_total = 0;
-  var trade_counter = 0;
+  var net_gain_list = []; //keeps track of the gains/losses from our trades
+  var symbols = []; //keeps track of the symbols fro our trades
+  var background_bar_list = []; //keeps track of color for bar graph
+  var border_bar_list = []; //keeps track of color bar graph
+  var background_line_list = []; //keeps track of color for line graph
+  var border_line_list = []; //keeps track of color for line graph
+  var date_list = []; //keeps track of dates from our trades
+  var total_list = []; //keeps track of our total net gains for each date
+  var current_total = 0; //keeps track of current total
+  var trade_counter = 0; //tracks number of trades
 
+  //Loops through the table, assembling the needed data for the graph from the table information
   $('tr').each(function(index){
 
     var trade_profit = 0;
 
+    //Skips the table header.
     if(index != 0){
 
+      //If the symbol for the trade is a coin we haven't seen before, add it to symbols and calculate
+      //trade profit. Else, find the index, and add it to the previous trade profit for that coin.
       if(symbols.indexOf($(this).find('#symbol').attr('symbol')) == -1){
 
         symbols.push($(this).find('#symbol').attr('symbol'));
@@ -140,15 +145,14 @@ function displayChart() {
 
       }
 
+      //If the trade has occurred on a date we haven't traded on before,
+      //add the date to the list. Else, find the date and to the profit
+      //for that day.
       if(date_list.indexOf($(this).find("#date").attr("date")) == -1){
         
         date_list.push($(this).find("#date").attr("date"));
 
-        console.log('The trade_profit is: ' + trade_profit);
-        console.log('The type of trade_profit is: ' + typeof(trade_profit));
-
         current_total = current_total + trade_profit;
-        console.log('The current total is: ' + current_total);
 
         total_list.push(current_total);
 
@@ -163,6 +167,9 @@ function displayChart() {
 
       trade_counter++;
 
+      //If we are at the end of the table, loop through the lists, pushing
+      //rgb for red for losses and rgb for green for gains. This edits
+      //the line graph's color.
       if($(this).next().length == 0 && current_total > 0){
 
         console.log('Greater than zero');
@@ -185,16 +192,10 @@ function displayChart() {
 
   });
 
-  console.log(date_list);
-  console.log(total_list);
-
   $('#total-view').text(current_total);
 
-  console.log('The list of gains is: ' + net_gain_list);
-  console.log('The list of symbols is: ' + symbols);
-  console.log('The list of dates is: ' + date_list + '\n');
-  console.log('The list of totals is: ' + total_list + '\n');
-
+  //Loops through the net gains, pushing red for losses,
+  //green for gains for the bar graph.
   for (var i = 0; i < net_gain_list.length; i++) {
 
     if(net_gain_list[i] < 0) {
@@ -214,6 +215,7 @@ function displayChart() {
     
   };
 
+  //create the bar graph using chartjs
   var chart = document.getElementById('net-gain').getContext("2d");
   var net_gain_chart = new Chart(chart, {
     type: "bar",
@@ -252,6 +254,7 @@ function displayChart() {
     }
   });
 
+  //creates the line graph using chartjs
   var profit_chart = document.getElementById('total-profit').getContext("2d");
   var total_profit_chart = new Chart(profit_chart, {
     type: "line",
@@ -294,12 +297,14 @@ function displayChart() {
 
 };
 
+//Adds a button to pop up a modal when adding a trade.
 $('#trade-btn').on('click', function(){
 
   $('#trade-view').show();
 
 });
 
+//Adds a close button to the modal
 $(document).on('click' , '.close', function(){
 
   $('#trade-view').hide('slow');
@@ -415,6 +420,7 @@ database.ref().on('child_added', function(child_snapshot){
 
 });
 
+//Removes a trade from the database
 $(document).on('click', '#remove-btn', function(){
 
   var _id = $('#remove-btn').attr('entry-id');
@@ -431,12 +437,6 @@ $(document).on('click', '#remove-btn', function(){
     console.log(error.message);
 
   });
-});
-
-$(document).ready(function(){
-
-  displayChart();
-
 });
 
 //Updates the navbar ticker every five seconds.
