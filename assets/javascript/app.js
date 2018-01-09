@@ -326,6 +326,7 @@ $('#add-trade-button').on('click', function(){
                             '<div class="panel panel-default panel-table">' +
                             '<h2>ERROR! Symbol does not exist in database. Please choose another coin.' +
                             '</div>');
+    return;
 
   }
   //Pushes the individual entry to the database. Push adds it as one 
