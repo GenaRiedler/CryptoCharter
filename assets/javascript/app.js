@@ -46,8 +46,6 @@ $.ajax({
 
 	}
 
-  console.log(response);
-
 });
 
 //Builds and displays the ticker at the top of the navbar. Displays only the first five.
@@ -460,7 +458,6 @@ database.ref().on('child_added', function(child_snapshot){
 $(document).on('click', '#remove-btn', function(){
 
   var _id = $('#remove-btn').attr('entry-id');
-  console.log(_id);
 
   var to_remove = database.ref(_id);
 
@@ -470,7 +467,7 @@ $(document).on('click', '#remove-btn', function(){
 
   }).catch(function(error){
 
-    console.log(error.message);
+    console.log("The remove failed: " + error.code);
 
   });
 });

@@ -120,8 +120,7 @@ canvas {
     padding: 5px;
     border: 1px solid #888;
     width: 70%; /* Could be more or less, depending on screen size */
-    height: 70%;
-    margin-bottom: 15%;
+    height: 60%;
 
 }
 
