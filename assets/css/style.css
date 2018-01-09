@@ -1,7 +1,7 @@
 .footer	{
 	background-color: #b7b7b7;
 	color: #01050e;
-	padding-top: 10px;
+	/*padding-top: 10px;*/
 }
 
 body {
@@ -9,7 +9,7 @@ body {
 	color: #b7b7b7;
 	font-family: 'Roboto', sans-serif;
 	margin-bottom: 40px;
-    width:612px;
+/*    width:612px;*/
 }
 
 #add-trade-button {
@@ -33,11 +33,9 @@ width: 100px;
 
 .panel-table {
 	background: transparent;
-	padding: 15px;
 }
 .panel-chart {
     background: white;
-    padding: 15px;
 }
 
 .container-fluid {
@@ -106,3 +104,6 @@ canvas {
     cursor: pointer;
 }
 
+.gainLoss {
+    padding-bottom: 50px;
+}
