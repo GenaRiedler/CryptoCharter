@@ -26,7 +26,8 @@ firebase.initializeApp(config);
 
 //Initialized variables for use through
 var database = firebase.database();
-
+$('#trade-table').hide();
+$('#load-view').show();
 //Gets the coin data from the API and builds the coins_price object
 $.ajax({
 	url: 'https://api.coinmarketcap.com/v1/ticker/',
@@ -36,7 +37,6 @@ $.ajax({
 	coins_ticker = response; //saves the ticker.
 
 	displayTicker();
-
   //Creates object linking coin symbol to price and getting our valid symbols
 	for(var j = 0; j < coins_ticker.length; j++){
 
@@ -47,6 +47,84 @@ $.ajax({
 	}
 
   $('#trade-table').show();
+  //$('#load-view').hide();
+
+  //Displays the new employee upon being added. Takes only a snapshot of the 
+  //added child.
+  database.ref().on('child_added', function(child_snapshot){
+
+    //Gets the snapshot values.
+    current_date = child_snapshot.val().date;
+    current_symbol = child_snapshot.val().symbol;
+    current_price = child_snapshot.val().price;
+    current_units = child_snapshot.val().units;
+    current_id = child_snapshot.key;
+
+    //Creates the table row
+    var table_row = $('<tr>');
+    table_row.attr('id', current_id);
+
+    //Creates the date column.
+    var date_col = $('<td>').text(current_date);
+    date_col.attr('date', current_date);
+    date_col.attr('id', 'date');
+    table_row.append(date_col);
+
+    //Creates the symbol column.
+    var symbol_col = $('<td>').text(current_symbol);
+    symbol_col.attr('symbol', current_symbol);
+    symbol_col.attr('id', 'symbol');
+    table_row.append(symbol_col);
+
+    //Creates the trade price column.
+    var price_col = $('<td>').text(current_price);
+    price_col.attr('price', current_price);
+    price_col.attr('id', 'bought-price');
+    table_row.append(price_col);
+
+
+    //Creates the units column.
+    var units_col = $('<td>').text(current_units);
+    units_col.attr('units', current_units);
+    units_col.attr('id', 'units');
+    table_row.append(units_col);
+
+    //Creates the current price column
+    var real_price = coins_price[current_symbol];
+    var current_price_col = $('<td>').text(real_price);
+    current_price_col.attr('current-price', real_price);
+    current_price_col.attr('id', 'current-price');
+    table_row.append(current_price_col);
+
+    //Creates the net gain/loss column.
+    var net_gain_loss = (coins_price[current_symbol] - current_price) * current_units;
+    var gain_loss_col = $('<td>').text(net_gain_loss);
+    gain_loss_col.attr('net-gain-loss', net_gain_loss);
+    gain_loss_col.attr('id', 'net-gain-loss');
+    table_row.append(gain_loss_col);
+
+    //Creates a button to remove a trade.
+    var remove_btn = $('<button>').text('Remove Entry');
+    remove_btn.attr('class', 'btn btn-primary center-block');
+    remove_btn.attr('id', 'remove-btn');
+    remove_btn.attr('entry-id', current_id);
+    table_row.append(remove_btn);
+
+
+    //Appends entire row to the table.
+    $('#trade-table').append(table_row);
+
+    displayChart();
+
+  }, function(errorObject){
+
+      console.log("The read failed: " + errorObject.code);
+
+  });
+
+  $('#trade-table').show();
+
+
 
 });
 
@@ -387,78 +465,6 @@ $('#add-trade-button').on('click', function(){
   });
 
   displayChart();
-
-});
-
-//Displays the new employee upon being added. Takes only a snapshot of the 
-//added child.
-database.ref().on('child_added', function(child_snapshot){
-
-  //Gets the snapshot values.
-  current_date = child_snapshot.val().date;
-  current_symbol = child_snapshot.val().symbol;
-  current_price = child_snapshot.val().price;
-  current_units = child_snapshot.val().units;
-  current_id = child_snapshot.key;
-
-  //Creates the table row
-  var table_row = $('<tr>');
-  table_row.attr('id', current_id);
-
-  //Creates the date column.
-  var date_col = $('<td>').text(current_date);
-  date_col.attr('date', current_date);
-  date_col.attr('id', 'date');
-  table_row.append(date_col);
-
-  //Creates the symbol column.
-  var symbol_col = $('<td>').text(current_symbol);
-  symbol_col.attr('symbol', current_symbol);
-  symbol_col.attr('id', 'symbol');
-  table_row.append(symbol_col);
-
-  //Creates the trade price column.
-  var price_col = $('<td>').text(current_price);
-  price_col.attr('price', current_price);
-  price_col.attr('id', 'bought-price');
-  table_row.append(price_col);
-
-
-  //Creates the units column.
-  var units_col = $('<td>').text(current_units);
-  units_col.attr('units', current_units);
-  units_col.attr('id', 'units');
-  table_row.append(units_col);
-
-  //Creates the current price column
-  var real_price = coins_price[current_symbol];
-  var current_price_col = $('<td>').text(real_price);
-  current_price_col.attr('current-price', real_price);
-  current_price_col.attr('id', 'current-price');
-  table_row.append(current_price_col);
-
-  //Creates the net gain/loss column.
-  var net_gain_loss = (coins_price[current_symbol] - current_price) * current_units;
-  var gain_loss_col = $('<td>').text(net_gain_loss);
-  gain_loss_col.attr('net-gain-loss', net_gain_loss);
-  gain_loss_col.attr('id', 'net-gain-loss');
-  table_row.append(gain_loss_col);
-
-  var remove_btn = $('<button>').text('Remove Entry');
-  remove_btn.attr('class', 'btn btn-default btn-xs');
-  remove_btn.attr('id', 'remove-btn');
-  remove_btn.attr('entry-id', current_id);
-  table_row.append(remove_btn);
-
-
-  //Appends entire row to the table.
-  $('#trade-table').append(table_row);
-
-  displayChart();
-
-}, function(errorObject){
-
-    console.log("The read failed: " + errorObject.code);
 
 });
 

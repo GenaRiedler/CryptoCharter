@@ -14,12 +14,15 @@ body {
 
 }
 
+/*Styles trade button*/
+
 #add-trade-button {
 
     width: 100px;
 
 }
 
+/* Styles jumbotron */
 .jumbotron {
 
 	background: transparent;
@@ -27,18 +30,21 @@ body {
 
 }
 
+/*Colors coin red in ticker*/
 .red {
 
 	color: rgb(255, 0, 0);
 
 }
 
+/* Colors coin green in ticker */
 .green {
 
 	color: rgb(81, 255, 0);
 
 }
 
+/* Styles the table */
 .panel-table {
 
 	background: transparent;
@@ -47,6 +53,13 @@ body {
     border-radius: 4px;
 
 }
+
+#load-view{
+
+    text-align: center;
+
+}
+/*Styles the charts */
 .panel-chart {
 
     background: white;
@@ -56,6 +69,7 @@ body {
 
 }
 
+/*Holds the ticker */
 .container-fluid {
 
     margin: 0 auto;
@@ -64,7 +78,7 @@ body {
 
 }
 
-
+/* Ticker */
 ul {
 
 	margin:0 auto;
@@ -74,6 +88,7 @@ ul {
   
 }
 
+/* Ticker */
 li {
 
 	padding: 10px;
@@ -81,6 +96,7 @@ li {
 
 }
 
+/*The heading of the panel */
 .panel-heading {
 
 	color: white;
@@ -88,6 +104,7 @@ li {
 
 }
 
+/* The Charts */
 canvas {
 
     padding-top: 15px;
