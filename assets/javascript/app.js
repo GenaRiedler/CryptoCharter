@@ -36,7 +36,9 @@ $.ajax({
 
 	coins_ticker = response; //saves the ticker.
 
+  //Displays the ticker
 	displayTicker();
+
   //Creates object linking coin symbol to price and getting our valid symbols
 	for(var j = 0; j < coins_ticker.length; j++){
 
@@ -46,11 +48,13 @@ $.ajax({
 
 	}
 
+  //Hides the loading view and shows the table.
   $('#trade-table').show();
-  //$('#load-view').hide();
+  $('#load-view').hide();
 
   //Displays the new employee upon being added. Takes only a snapshot of the 
-  //added child.
+  //added child. Used after AJAX call because the table relies on data from
+  //response.
   database.ref().on('child_added', function(child_snapshot){
 
     //Gets the snapshot values.
@@ -275,7 +279,25 @@ function displayChart() {
 
   });
 
-  $('#total-view').text(current_total);
+  //Sets the total view to current total and colors it depending on
+  //value.
+  var total_display = current_total.toString();
+  if(total_display.charAt(0) == '-'){
+
+    total_display = total_display.slice(0, 1) + ' $' + 
+                    total_display.slice(1, total_display.length);
+
+    $('#total-view').addClass('red');
+
+  }
+  else{
+
+    total_display = '$' + total_display;
+    $('#total-view').addClass('green');
+
+  }
+
+  $('#total-view').text(total_display);
 
   //Loops through the net gains, pushing red for losses,
   //green for gains for the bar graph.
