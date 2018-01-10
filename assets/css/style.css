@@ -54,11 +54,18 @@ body {
 
 }
 
+/*Styles loading text to the center */
 #load-view{
 
     text-align: center;
 
 }
+
+/* maintains chart height correctly */
+.chart-container{
+    position: relative; height:40vh; width:80vw
+}
+
 /*Styles the charts */
 .panel-chart {
 

@@ -355,7 +355,6 @@ function displayChart() {
           ticks: {
             beginAtZero:true
           }
-
         }],
         xAxes: [{
           scaleLabel: {
@@ -405,8 +404,7 @@ function displayChart() {
       },
       legend: {
         display: false
-      },
-
+      }
     }
   });
 
