@@ -100,23 +100,11 @@ $.ajax({
     current_price_col.attr('id', 'current-price');
     table_row.append(current_price_col);
 
-    //Creates the net gain/loss column.
+    //Creates the net gain/loss column. Paints it red for losses, green for gains.
     var net_gain_loss = (coins_price[current_symbol] - current_price) * current_units;
     var gain_loss_col = $('<td>').text(net_gain_loss);
     gain_loss_col.attr('net-gain-loss', net_gain_loss);
     gain_loss_col.attr('id', 'net-gain-loss');
-    table_row.append(gain_loss_col);
-
-    //Creates a button to remove a trade.
-    var remove_btn = $('<button>').text('Remove Entry');
-    remove_btn.attr('class', 'btn btn-primary center-block');
-    remove_btn.attr('id', 'remove-btn');
-    remove_btn.attr('entry-id', current_id);
-    table_row.append(remove_btn);
-
-
-    //Appends entire row to the table.
-    $('#trade-table').append(table_row);
 
     if(net_gain_loss >= 0){
 
@@ -129,6 +117,19 @@ $.ajax({
 
     }
 
+    table_row.append(gain_loss_col);
+
+    //Creates a button to remove a trade.
+    var remove_btn = $('<button>').text('Remove Entry');
+    remove_btn.attr('class', 'btn btn-primary center-block');
+    remove_btn.attr('id', 'remove-btn');
+    remove_btn.attr('entry-id', current_id);
+    table_row.append(remove_btn);
+
+    //Appends entire row to the table.
+    $('#trade-table').append(table_row);
+
+    //displays the graphs
     displayChart();
 
   }, function(errorObject){
@@ -136,11 +137,6 @@ $.ajax({
       console.log("The read failed: " + errorObject.code);
 
   });
-
-  $('#trade-table').show();
-
-
-
 });
 
 //Builds and displays the ticker at the top of the navbar. Displays only the first five.
@@ -150,25 +146,19 @@ function displayTicker(){
 
 	var i = 1;
 
-  //Loops five times each time, displaying five different coins and their information.
+  //Loops through a specified amount of times each time, 
+  //displaying five different coins and their information.
+  //Currently set to show 7.
 	while(i%8 != 0){
 
+    //Creates list item and puts coin data into it.
 		var ticker_div = $('<li>');
 		ticker_div.attr('id', ticker_tracker);
-		ticker_div.text(" " + coins_ticker[ticker_tracker].symbol + " " + "$" + coins_ticker[ticker_tracker].price_usd + " "+ coins_ticker[ticker_tracker].percent_change_24h + "%");
-
-    //Adds an attribute used to hide coins if the screen is smaller
-    if(i > 2){
-
-      ticker_div.attr('should-hide', 'true');
-
-    }
-    else{
-
-      ticker_div.attr('should-hide', 'false');
-
-    }
-
+		ticker_div.text(" " + 
+                    coins_ticker[ticker_tracker].symbol + 
+                    " " + "$" + coins_ticker[ticker_tracker].price_usd + 
+                    " " + 
+                    coins_ticker[ticker_tracker].percent_change_24h + "%");
 		$('#ticker-view').append(ticker_div);
 
     //Adds red if the coin is going down, green if the coin is going up.
@@ -184,7 +174,8 @@ function displayTicker(){
 
 		ticker_tracker++;
 		i++;
-    
+
+    //resets ticker_tracker if there is no next item in the list.
     if(coins_ticker[ticker_tracker] == undefined){
 
       ticker_tracker = 0;
@@ -217,7 +208,8 @@ function displayChart() {
   var current_total = 0; //keeps track of current total
   var trade_counter = 0; //tracks number of trades
 
-  //Loops through the table, assembling the needed data for the graph from the table information
+  //Loops through the html for the table, assembling the needed data for the 
+  //graph from the table information.
   $('tr').each(function(index){
 
     var trade_profit = 0;
@@ -225,8 +217,10 @@ function displayChart() {
     //Skips the table header.
     if(index != 0){
 
-      //If the symbol for the trade is a coin we haven't seen before, add it to symbols and calculate
-      //trade profit. Else, find the index, and add it to the previous trade profit for that coin.
+      //If the symbol for the trade is a coin we haven't seen before, 
+      //add it to symbols and calculate
+      //trade profit. Else, find the index, and add it to the previous 
+      //trade profit for that coin.
       if(symbols.indexOf($(this).find('#symbol').attr('symbol')) == -1){
 
         symbols.push($(this).find('#symbol').attr('symbol'));
@@ -259,7 +253,11 @@ function displayChart() {
       }
       else if(date_list.indexOf($(this).find("#date").attr("date")) != -1){
 
-        var index_to_change = date_list.indexOf($(this).find('#date').attr('date'));
+        var index_to_change = date_list.indexOf(
+
+          $(this).find('#date').attr('date')
+
+        );
         total_list[index_to_change] = total_list[index_to_change] + trade_profit;
         trade_counter--;
 
@@ -273,16 +271,20 @@ function displayChart() {
       if($(this).next().length == 0 && current_total > 0){
 
         for(var j = 0; j < trade_counter; j++){
+
           background_line_list.push("rgba(81, 255, 0, 0.5)");
           border_line_list.push("rgba(81, 255, 0, 1)");
+
         }
 
       }
       else if($(this).next().length == 0 && current_total < 0){
 
         for(var j = 0; j < trade_counter; j++){
+
             background_line_list.push("rgba(255, 0, 0, 0.5)");
             border_line_list.push("rgba(255, 0, 0, 1)");
+
         }
 
       }
@@ -293,6 +295,8 @@ function displayChart() {
   //Sets the total view to current total and colors it depending on
   //value.
   var total_display = current_total.toString();
+
+  //If its a negative number, adjust string so the - is before the $
   if(total_display.charAt(0) == '-'){
 
     total_display = total_display.slice(0, 1) + ' $' + 
@@ -308,6 +312,7 @@ function displayChart() {
 
   }
 
+  //Displays the total profit.
   $('#total-view').text(total_display);
 
   //Loops through the net gains, pushing red for losses,
@@ -331,7 +336,7 @@ function displayChart() {
     
   };
 
-  //create the bar graph using chartjs
+  //Creates the bar graph using chartjs
   var chart = document.getElementById('net-gain').getContext("2d");
   var net_gain_chart = new Chart(chart, {
     type: "bar",
@@ -369,7 +374,7 @@ function displayChart() {
     }
   });
 
-  //creates the line graph using chartjs
+  //Creates the line graph using chartjs
   var profit_chart = document.getElementById('total-profit').getContext("2d");
   var total_profit_chart = new Chart(profit_chart, {
     type: "line",
@@ -425,25 +430,27 @@ $(document).on('click' , '.close', function(){
 
 });
 
+//Hides table on load. Is shown when the data is loaded.
 $(document).ready(function(){
 
   $('#trade-table').hide();
 
 });
 
-//Event listener that runs function upon clicking submit.
+//Event listener that adds a trade upon being clicked.
 $('#add-trade-button').on('click', function(){
 
   //Prevents the page from reloading.
   event.preventDefault();
 
-  //Gets the inputted values for the employees from the form and increments
-  //employee count.
+  //Gets the inputted values for the trade
   current_date = $('#date-input').val();
   current_symbol = $('#symbol-input').val();
   current_price = $('#price-input').val();
   current_units = $('#units-input').val();
 
+  //Displays error if an invalid coin is inputted. Returns to form once
+  //time has expired.
   if(valid_symbols.indexOf(current_symbol) == -1){
 
     $('#trade-view').empty();
@@ -477,13 +484,14 @@ $('#add-trade-button').on('click', function(){
                               '</div>' +     
                               '<br>'+ 
                               '<button class="btn btn-primary center-block" id="add-trade-button" type="submit">Add Trade</button>' +
-                              '</form>'
-                              );
+                              '</form>');
     }, 3000);
 
+    //Skips rest of the function if error occurred.
     return; 
 
   }
+
   //Pushes the individual entry to the database. Push adds it as one 
   //item with a single unique id.
   database.ref().push({
@@ -495,6 +503,7 @@ $('#add-trade-button').on('click', function(){
 
   });
 
+  //Displays the charts.
   displayChart();
 
 });

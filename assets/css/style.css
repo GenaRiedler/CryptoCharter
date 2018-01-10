@@ -1,3 +1,4 @@
+/*Styles the footer */
 .footer	{
 
 	background-color: #b7b7b7;
@@ -5,6 +6,7 @@
 
 }
 
+/*Sets the font and background of entire page */
 body {
 
 	background-image: url('../images/blue_bkgrd.jpg');
@@ -15,7 +17,6 @@ body {
 }
 
 /*Styles trade button*/
-
 #add-trade-button {
 
     width: 100px;
@@ -120,7 +121,7 @@ canvas {
 
 }
 
-/* The Modal (background) */
+/* The Modal */
 .modal {
 
     display: none; /* Hidden by default */
@@ -158,6 +159,7 @@ canvas {
 
 }
 
+/*Styles the hovering of the close button */
 .close:hover,
 .close:focus {
 
@@ -166,8 +168,3 @@ canvas {
     cursor: pointer;
 
 }
-
-.gainLoss {
-    padding-bottom: 50px;
-}
-
