@@ -118,6 +118,17 @@ $.ajax({
     //Appends entire row to the table.
     $('#trade-table').append(table_row);
 
+    if(net_gain_loss >= 0){
+
+      gain_loss_col.addClass('green');
+
+    }
+    else if(net_gain_loss < 0){
+
+      gain_loss_col.addClass('red');
+
+    }
+
     displayChart();
 
   }, function(errorObject){
