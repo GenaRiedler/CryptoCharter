@@ -57,6 +57,8 @@ $.ajax({
   //Displays the new employee upon being added. Takes only a snapshot of the 
   //added child. Used after AJAX call because the table relies on data from
   //response.
+  var trade_number = 0;
+
   database.ref().on('child_added', function(child_snapshot){
 
     //Gets the snapshot values.
@@ -68,7 +70,7 @@ $.ajax({
 
     //Creates the table row
     var table_row = $('<tr>');
-    table_row.attr('id', current_id);
+    table_row.attr('id', trade_number);
 
     //Creates the date column.
     var date_col = $('<td>').text(current_date);
@@ -126,6 +128,7 @@ $.ajax({
     remove_btn.attr('class', 'btn btn-default btn-xs center-block');
     remove_btn.attr('id', 'remove-btn');
     remove_btn.attr('entry-id', current_id);
+    remove_btn.attr('trade-number', trade_number)
     table_row.append(remove_btn);
 
     //Appends entire row to the table.
@@ -133,6 +136,8 @@ $.ajax({
 
     //displays the graphs
     displayChart();
+
+    trade_number++;
 
   }, function(errorObject){
 
@@ -516,13 +521,22 @@ $('#add-trade-button').on('click', function(){
 $(document).on('click', '#remove-btn', function(){
 
   var _id = $('#remove-btn').attr('entry-id');
-
+  var trade_number = $('#remove-btn').attr('trade-number');
+  console.log(trade_number);
   var to_remove = database.ref(_id);
+  console.log(_id);
 
   to_remove.remove().then(function(){
 
-    $('#' + _id).empty();
+    $('tr').each(function(index){
 
+      if($(this).attr('id') == trade_number){
+
+        $(this).empty();
+        
+      }
+
+    });
   }).catch(function(error){
 
     console.log("The remove failed: " + error.code);
