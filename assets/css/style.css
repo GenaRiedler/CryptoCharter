@@ -55,6 +55,7 @@ body {
 
 /*Styles loading text to the center */
 #load-view{
+
     color: rgb(81, 255, 0);
     text-align: center;
 
@@ -62,7 +63,9 @@ body {
 
 /* maintains chart height correctly */
 .chart-container{
-    position: relative; height:40vh; width:80vw
+    position: relative; 
+    height: 40vh; 
+    width: 80vw
 }
 
 /*Styles the charts */
@@ -180,6 +183,7 @@ canvas {
 }
 
 @keyframes spin {
+
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
