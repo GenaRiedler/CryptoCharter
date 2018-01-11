@@ -26,8 +26,10 @@ firebase.initializeApp(config);
 
 //Initialized variables for use through
 var database = firebase.database();
+
 $('#trade-table').hide();
 $('#load-view').show();
+
 //Gets the coin data from the API and builds the coins_price object
 $.ajax({
 	url: 'https://api.coinmarketcap.com/v1/ticker/',
