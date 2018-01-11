@@ -120,8 +120,8 @@ $.ajax({
     table_row.append(gain_loss_col);
 
     //Creates a button to remove a trade.
-    var remove_btn = $('<button>').text('Remove Entry');
-    remove_btn.attr('class', 'btn btn-primary center-block');
+    var remove_btn = $('<button>').text('Remove');
+    remove_btn.attr('class', 'btn btn-default btn-xs center-block');
     remove_btn.attr('id', 'remove-btn');
     remove_btn.attr('entry-id', current_id);
     table_row.append(remove_btn);
