@@ -50,7 +50,7 @@ $.ajax({
 
   //Hides the loading view and shows the table.
   $('#trade-table').show();
-  //$('#load-view').hide();
+  $('#load-view').hide();
 
   //Displays the new employee upon being added. Takes only a snapshot of the 
   //added child. Used after AJAX call because the table relies on data from
