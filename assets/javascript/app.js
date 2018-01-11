@@ -508,6 +508,8 @@ $('#add-trade-button').on('click', function(){
   //Displays the charts.
   displayChart();
 
+  $('#trade-view').hide();
+
 });
 
 //Removes a trade from the database
